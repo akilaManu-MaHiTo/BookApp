@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-const apiKey = 'AIzaSyCmGwif2dxpwpdsw7q3u-34H169EBeAIIA'; // Use environment variable for API key
+const apiKey = 'AIzaSyD6XcEz6p-l-PFH4AprQnQ2rNRTOXkU1qY'; // Use environment variable for API key
 const pageSize = 10; // Number of books per fetch
 const visibleCards = 5; // Number of cards to show at once
 

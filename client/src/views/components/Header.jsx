@@ -5,7 +5,7 @@ import { faEnvelope, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
 import Loader from './Loader'; // Add your Loader component here
 
-const apiKey = 'AIzaSyCmGwif2dxpwpdsw7q3u-34H169EBeAIIA';
+const apiKey = 'AIzaSyD6XcEz6p-l-PFH4AprQnQ2rNRTOXkU1qY';
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
