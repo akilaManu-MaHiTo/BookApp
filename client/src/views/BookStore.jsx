@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Loader from './components/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -107,20 +108,35 @@ const FetchAllBooks = () => {
                             {books.map((book, index) => (
                                 <div
                                     key={index}
-                                    className="h-full flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-4 border rounded-lg shadow-md hover:shadow-lg bg-white flex flex-col justify-between"
+                                    className="h-full flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-4 border rounded-lg shadow-md hover:shadow-lg bg-gray-100 flex flex-col justify-between"
                                 >
                                     {/* Image Section */}
-                                    {book.volumeInfo.imageLinks?.thumbnail ? (
-                                        <img
-                                            src={book.volumeInfo.imageLinks.thumbnail}
-                                            alt={book.volumeInfo.title}
-                                            className="w-full h-96 object-cover mb-4 rounded-lg"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-96 bg-gray-200 flex items-center justify-center mb-4 rounded-lg">
-                                            <span className="text-gray-500">No Image Available</span>
+                                    <div className="relative group w-full h-96 mb-4 rounded-lg overflow-hidden">
+                                        {/* Image Section */}
+                                        {book.volumeInfo.imageLinks?.thumbnail ? (
+                                            <img
+                                                src={book.volumeInfo.imageLinks.thumbnail}
+                                                alt={book.volumeInfo.title}
+                                                className="w-full h-full object-cover rounded-lg"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-gray-200 flex items-center justify-center rounded-lg">
+                                                <span className="text-gray-500">No Image Available</span>
+                                            </div>
+                                        )}
+
+                                        {/* Separate Description Card */}
+                                        <div className="absolute font-desp bottom-0 text-[0.5rem] left-0 right-0 z-50 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                            <div
+                                                className="bg-[#e3ded4] bg-opacity-90  p-4 rounded-b-lg shadow-lg max-h-20 overflow-hidden group-hover:max-h-40 group-hover:overflow-y-auto transition-all duration-300"
+                                            >
+                                                <span className="text-sm">
+                                                    {book.volumeInfo.description || "No description available."}
+                                                </span>
+                                            </div>
                                         </div>
-                                    )}
+                                    </div>
+
 
                                     {/* Content Section */}
                                     <div className="flex flex-col flex-grow">
@@ -163,9 +179,13 @@ const FetchAllBooks = () => {
     };
 
     if (loading) {
-        return <p className="text-center text-blue-500">Loading books...</p>;
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <Loader />
+            </div>
+        );
     }
-
+    
     if (error) {
         return <p className="text-center text-red-500">Error loading books: {error}</p>;
     }
@@ -176,7 +196,7 @@ const FetchAllBooks = () => {
                 <div className="bg-[#e3ded4] min-h-screen pt-5">
                     <div className="container mx-auto md:mt-48 p-4">
                         <div className="flex flex-col md:flex-row gap-8 justify-between py-5 px-14">
-                            <div className='w-[48rem] flex'>
+                            <div className='md:w-[48rem] md:flex'>
                             {/* First Section */}
                             <div className=" rounded-md p-6">
                                 <h1 className="text-2xl font-bold text-gray-800 mb-2 ">What are the books?</h1>
@@ -215,7 +235,7 @@ const FetchAllBooks = () => {
                                     ))}
                             </div>
                         </div>
-                        <div className='px-20 w-[48rem]'>
+                        <div className='px-20 text-justify md:w-[48rem]'>
                             <h1 className='text-2xl font-bold text-gray-800 mb-2'>In our store,</h1>
                                 we provide a wide range of books across various genres, 
                                 including fiction, non-fiction, academic, and self-help, catering to readers of 
@@ -226,21 +246,24 @@ const FetchAllBooks = () => {
                     ))}
 
                     {/* Tailwind CSS grid for links */}
-                    <div className="flex justify-between mt-5 px-[4rem]">
+                    <div className='font-bold text-lg mt-5'>Browse Other Books</div>
+                    <div className="md:flex justify-between mt-5 px-[4rem]">
                         {/* Left Side: Category Links */}
-                        <div className="w-auto">
-                            <div className="grid grid-cols-3 gap-10 gap-x-44">
+                        <div className="w-auto mt-2">
+                            <div className="grid grid-cols-3 md:grid-cols-4 gap-4 gap-x-20">
                                 {[
                                     'Art', 'Adventure', 'Biography', 'Fantasy', 'Horror',
                                     'Music', 'Mystery', 'Poetry', 'Romance', 'Science',
-                                    'Self-help', 'Technology', 'Thriller', 'History','Comedy',
+                                    'Self-help', 'Technology', 'Thriller', 'History','Comedy','Business',
+                                    'Children','Cookbooks','Ebooks','Fantasy','Horror','Mystery','Nonfiction','Psychology',
+                                    'Sports','Sports','Thriller',
                                 ]
                                     .sort()
                                     .map((category, index) => (
                                         <a 
                                             key={index} 
                                             href="#" 
-                                            className="text-[#ed8770] font-medium text-lg hover:underline block"
+                                            className="text-blue-600 font-desp hover:underline block"
                                         >
                                             {category}
                                         </a>
@@ -250,7 +273,7 @@ const FetchAllBooks = () => {
 
                         {/* Center Space: Random Book Images Grid */}
                         <div className="">
-                            <div className="grid grid-cols-3 gap-1 gap-x-4">
+                            <div className="grid md:grid-cols-3 grid-cols-4 md:gap-1 md:gap-x-4 gap-y-[0.6rem] gap-x-8">
                                 {Object.values(categories)
                                     .flat() // Flatten all books into a single array
                                     .filter((book) => book.volumeInfo.imageLinks?.smallThumbnail) // Only include books with images
@@ -264,21 +287,17 @@ const FetchAllBooks = () => {
                                             <img
                                                 src={book.volumeInfo.imageLinks.smallThumbnail}
                                                 alt={book.volumeInfo.title}
-                                                className="w-20 h-32 object-cover rounded-md"
+                                                className="w-14 h-24 object-cover rounded-md"
                                             />
                                         </div>
                                     ))}
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
             <div><Footer></Footer></div>
         </div>
-
     );
 };
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
-import Loader from './Loader'; // Add your Loader component here
+import Loader from './Sloader'; // Add your Loader component here
 
 const apiKey = 'AIzaSyD6XcEz6p-l-PFH4AprQnQ2rNRTOXkU1qY';
 
@@ -95,7 +95,7 @@ const Header = () => {
               className="w-full h-12 px-4 focus:outline-none"
             />
             {isLoading && (
-              <Loader className="absolute right-4 h-6 w-6 text-[#ed8770]" /> // Show loader
+              <div className=''><Loader/></div>
             )}
           </div>
           {/* Search Results Dropdown */}
